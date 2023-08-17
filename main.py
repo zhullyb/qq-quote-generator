@@ -4,6 +4,11 @@ from utils import *
 from screenshot import Screenshot
 app = Flask(__name__)
 
+@app.after_request
+def set_headers(response):
+    response.headers["Referrer-Policy"] = 'no-referrer'
+    return response
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     # 接收 user_id 参数, nickname 参数
