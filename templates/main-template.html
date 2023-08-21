@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QQ对话生成界面</title>
+</head>
+
+<body>
+    <div id="app">
+        {% for index in data_list %}
+        <div class="dialog">
+            <img src="https://q1.qlogo.cn/g?b=qq&nk={{index.user_id}}&s=640" class="avatar"></img>
+            <div>
+                <p class="nickname">{{index.user_nickname}}</p>
+                {% if index.image | length == 1 and index.message is not defined and index.reply is not defined %}
+                        <img src="{{index.image[0]}}" class="single-image"></img>
+                {% else %}
+                <div class="body">
+                    {% if index.reply is defined %}
+                    <div class="reply">
+                        <div class="reply-first">
+                            <p>{{index.reply.user_nickname}}</p>
+                            <img src="https://cdn.jsdelivr.net/npm/@fluentui/svg-icons@1.1.198/icons/arrow_upload_16_regular.svg"></img>
+                        </div>
+                        <div>
+                            {% if index.reply.message is defined %}
+                            <p class="reply-message">{{index.reply.message}}</p>
+                            {% endif %}
+                            {% if index.reply.image is defined %}
+                            <img src="{{index.reply.image}}" class="image"></img>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="message">
+                        {% if index.message is defined %}
+                        <p style="display: inline-block;">{{index.message}}</p>
+                        {% endif %}
+                        {% if index.image is defined %}
+                        {% for image in index.image %}
+                        <img src="{{image}}" class="image"></img>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <style>
+        #app {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #F1F1F1;
+            width: fit-content;
+            padding: 10px;
+            max-width: 800px;
+        }
+
+        .dialog {
+            display: flex;
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 20px;
+        }
+
+        .nickname {
+            color: #9497A3;
+            height: 20px;
+            font-size: 25px;
+            padding: 5px;
+            margin: 25px;
+            margin-left: 0px;
+        }
+
+        .body {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: fit-content;
+            word-break: break-all;
+            word-wrap: break-word;
+            margin: 15px;
+            margin-left: 0;
+        }
+
+        .reply {
+            background-color: #F5F5F5;
+            padding: 10px;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .reply-first {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .reply-first p {
+            float: left;
+            font-size: 25px;
+            max-width: inherit;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .reply-first img {
+            width: 30px;
+            height: 30px;
+            padding-top: 3px;
+        }
+
+        .reply-message {
+            display: block;
+            font-size: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .message {
+            margin: 0;
+            font-size: 35px;
+            display: grid;
+        }
+
+        .single-image {
+            margin: 10px 20px 20px 0;
+            border-radius: 15px;
+            max-width: 500px;
+            max-height: 500px;
+        }
+
+        .image {
+            margin: 10px;
+            border-radius: 15px;
+            max-width: 500px;
+            max-height: 500px;
+        }
+    </style>
+</body>
+
+</html>
