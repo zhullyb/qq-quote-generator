@@ -1,4 +1,4 @@
-# qq-quote-generater
+# qq-quote-generator
 
 一个基于 headless firefox 实现的低性能 qq 聊天语录图片生成 api，灵感来源于 telegram 的 [quote-bot](https://github.com/LyoSU/quote-bot)。
 
@@ -10,4 +10,4 @@
 
 以下是由 data_example.json 生成的图片预览
 
-![](./demo.png)
+![](./assets/demo.png)

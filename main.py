@@ -30,4 +30,4 @@ if __name__ == '__main__':
     # init headless browser
     ss = Screenshot()
     
-    app.run(host='0.0.0.0', port=Config.FLASK_RUN_PORT, debug=True)
+    app.run(host='0.0.0.0', port=Config.FLASK_RUN_PORT)
