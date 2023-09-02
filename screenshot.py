@@ -1,14 +1,19 @@
 from selenium import webdriver
-from selenium.webdriver import FirefoxOptions
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.common.by import By
 from utils import Config
 
 # Set the headless option.
 class Screenshot:
     def __init__(self):
-        opts = FirefoxOptions()
+        opts = Options()
         opts.add_argument("--headless")
-        self.driver = webdriver.Firefox(options=opts)
+        if Config.GECKODRIVER_PATH:
+            service = Service(executable_path='/root/geckodriver')
+            self.driver = webdriver.Firefox(options=opts, service=service)
+        else:
+            self.driver = webdriver.Firefox(options=opts)
 
     def screenshot(self):
         self.driver.get("http://127.0.0.1:{}/quote/".format(Config.FLASK_RUN_PORT))
