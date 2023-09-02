@@ -9,5 +9,5 @@ RUN mkdir /root/templates \
     && pip install selenium requests flask
 COPY main.py screenshot.py utils.py assets/geckodriver /root/
 COPY templates/ /root/templates
-COPY assets/MiSans-Light.ttf /usr/share/fonts/misans/
+COPY assets/MiSans-Regular.ttf /usr/share/fonts/misans/
 CMD env GECKODRIVER_PATH=/root/geckodriver python3 /root/main.py
