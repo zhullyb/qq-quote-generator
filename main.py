@@ -15,23 +15,21 @@ def set_headers(response):
 
 @app.route('/', methods=['GET', 'POST'])
 def handler():
-    data = request.get_json()
-    storeData(data)
+    lock.acquire()
+    global data_list
+    data_list = request.get_json()
     ss_get = ss.screenshot()
     if Config.RETURN_PNG:
         return send_file(io.BytesIO(ss_get), mimetype='image/png')
     else:
         return ss_get
-    
-def storeData(data):
-    with lock:
-        global data_list
-        data_list = data
 
 @app.route('/quote/', methods=['GET', 'POST'])
 def quote():
     global data_list
-    return render_template('main-template.html', data_list=data_list)
+    data = data_list
+    lock.release()
+    return render_template('main-template.html', data_list=data)
     
 if __name__ == '__main__':
     # init headless browser
