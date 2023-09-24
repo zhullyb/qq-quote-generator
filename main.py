@@ -1,9 +1,11 @@
 import io
 from flask import Flask, render_template, request, send_file
+import threading
 from utils import *
 from screenshot import Screenshot
 app = Flask(__name__)
 
+lock = threading.Lock()
 data_list = []
 
 @app.after_request
@@ -13,13 +15,18 @@ def set_headers(response):
 
 @app.route('/', methods=['GET', 'POST'])
 def handler():
-    global data_list
-    data_list = request.get_json()
+    data = request.get_json()
+    storeData(data)
     ss_get = ss.screenshot()
     if Config.RETURN_PNG:
         return send_file(io.BytesIO(ss_get), mimetype='image/png')
     else:
         return ss_get
+    
+def storeData(data):
+    with lock:
+        global data_list
+        data_list = data
 
 @app.route('/quote/', methods=['GET', 'POST'])
 def quote():
