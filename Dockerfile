@@ -3,7 +3,9 @@ EXPOSE 5000
 RUN mkdir /root/templates \
     && mkdir -p /usr/share/fonts/misans \
     && apk add --no-cache \
-    firefox font-noto-cjk \
+    firefox \
+    font-noto \
+    font-noto-cjk \
     font-noto-cjk-extra \
     font-noto-emoji \
     && pip install selenium requests flask
