@@ -4,6 +4,7 @@ RUN mkdir /root/templates \
     && mkdir -p /usr/share/fonts/misans \
     && apk add --no-cache \
     firefox \
+    font-freefont \
     font-noto \
     font-noto-cjk \
     font-noto-cjk-extra \
