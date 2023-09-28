@@ -10,7 +10,7 @@ class Screenshot:
         opts = Options()
         opts.add_argument("--headless")
         if Config.GECKODRIVER_PATH:
-            service = Service(executable_path='/root/geckodriver')
+            service = Service(executable_path=Config.GECKODRIVER_PATH)
             self.driver = webdriver.Firefox(options=opts, service=service)
         else:
             self.driver = webdriver.Firefox(options=opts)
