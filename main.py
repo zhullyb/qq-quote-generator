@@ -3,10 +3,10 @@ from flask import Flask, render_template, request, send_file
 import threading
 from utils import *
 from screenshot import Screenshot
+from uuid import uuid4
 app = Flask(__name__)
 
-lock = threading.Lock()
-data_list = []
+data_dict = {}
 
 @app.after_request
 def set_headers(response):
@@ -15,10 +15,10 @@ def set_headers(response):
 
 @app.route('/', methods=['GET', 'POST'])
 def handler():
-    lock.acquire()
-    global data_list
-    data_list = request.get_json()
-    ss_get = ss.screenshot()
+    unique_id = str(uuid4())
+    data_dict[unique_id] = request.get_json()
+    ss_get = ss.screenshot(unique_id)
+    data_dict.pop(unique_id, None)
     if Config.RETURN_PNG:
         return send_file(io.BytesIO(ss_get), mimetype='image/png')
     else:
@@ -26,9 +26,8 @@ def handler():
 
 @app.route('/quote/', methods=['GET', 'POST'])
 def quote():
-    global data_list
-    data = data_list
-    lock.release()
+    unique_id = request.args.get('id')
+    data = data_dict.get(unique_id, [])
     return render_template('main-template.html', data_list=data)
     
 if __name__ == '__main__':
