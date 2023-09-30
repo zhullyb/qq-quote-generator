@@ -22,7 +22,7 @@
                     <div class="reply">
                         <div class="reply-first">
                             <p>{{index.reply.user_nickname}}</p>
-                            <img src="https://cdn.jsdelivr.net/npm/@fluentui/svg-icons@1.1.198/icons/arrow_upload_16_regular.svg"></img>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M3.5 2a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9Zm4.854 2.146a.5.5 0 0 0-.708 0l-3.5 3.5a.5.5 0 1 0 .708.708L7.5 5.707V13.5a.5.5 0 0 0 1 0V5.707l2.646 2.647a.5.5 0 0 0 .708-.708l-3.5-3.5Z"/></svg>
                         </div>
                         <div>
                             {% if index.reply.message is defined %}
@@ -120,7 +120,7 @@
             text-overflow: ellipsis;
         }
 
-        .reply-first img {
+        .reply-first svg {
             width: 30px;
             height: 30px;
             padding-top: 3px;
