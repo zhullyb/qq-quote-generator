@@ -14,15 +14,26 @@ def set_headers(response):
     return response
 
 @app.route('/', methods=['GET', 'POST'])
-def handler():
+def index():
+    return 'see https://github.com/zhullyb/qq-quote-generator/blob/main/README.md'
+
+def handler(ret_type):
     unique_id = str(uuid4())
     data_dict[unique_id] = request.get_json()
-    ss_get = ss.screenshot(unique_id)
+    ss_get = ss.screenshot(ret_type, unique_id)
     data_dict.pop(unique_id, None)
-    if Config.RETURN_PNG:
+    if ret_type == 'png':
         return send_file(io.BytesIO(ss_get), mimetype='image/png')
-    else:
+    elif ret_type == 'base64':
         return ss_get
+
+@app.route('/base64/', methods=['POST'])
+def base64_handler_trigger():
+    return handler('base64')
+
+@app.route('/png/', methods=['POST'])
+def png_handler_trigger():
+    return handler('png')
 
 @app.route('/quote/', methods=['GET', 'POST'])
 def quote():

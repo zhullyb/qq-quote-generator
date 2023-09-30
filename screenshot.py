@@ -15,10 +15,10 @@ class Screenshot:
         else:
             self.driver = webdriver.Firefox(options=opts)
 
-    def screenshot(self, unique_id):
+    def screenshot(self, ret_type, unique_id):
         self.driver.get(f"http://127.0.0.1:{Config.FLASK_RUN_PORT}/quote/?id={unique_id}")
         
-        if Config.RETURN_PNG:
+        if ret_type == 'png':
             return self.driver.find_element(By.ID, "app").screenshot_as_png
-        else:
+        elif ret_type == 'base64':
             return self.driver.find_element(By.ID, "app").screenshot_as_base64
