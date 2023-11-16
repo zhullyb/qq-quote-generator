@@ -7,6 +7,7 @@ from uuid import uuid4
 app = Flask(__name__)
 
 data_dict = {}
+ss = Screenshot()
 
 @app.after_request
 def set_headers(response):
@@ -42,7 +43,4 @@ def quote():
     return render_template('main-template.html', data_list=data)
     
 if __name__ == '__main__':
-    # init headless browser
-    ss = Screenshot()
-    
     app.run(host='0.0.0.0', port=Config.FLASK_RUN_PORT)
