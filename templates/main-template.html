@@ -129,8 +129,11 @@
         .reply-message {
             display: block;
             font-size: 30px;
+            white-space: pre-wrap;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
             overflow: hidden;
-            white-space: nowrap;
             text-overflow: ellipsis;
         }
 
